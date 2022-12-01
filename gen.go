@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"sync"
 
 	"github.com/tlaceby/go-utils/colors"
 
@@ -17,46 +18,46 @@ type AdventOfCode struct {
 	Day       int
 }
 
+func GenerateYearData(ac AdventOfCode) {
+
+	input, err := GetAOCInput(ac)
+
+	if err != nil {
+		return
+	}
+
+	folder := fmt.Sprintf("day_%d", ac.Day)
+	err = os.Mkdir(folder, os.ModePerm)
+
+	if err != nil {
+		return
+	}
+
+	file, _ := os.Create(fmt.Sprintf("%s/input.txt", folder))
+	file.Write(input)
+	GenerateMainFile(ac, string(input), folder)
+
+	fmt.Printf("+ %s\n", colors.FCyan(folder))
+}
+
 func main() {
 	session, err := GetAOCSession()
 	if err != nil {
 		panic(err)
 	}
+	var wg sync.WaitGroup
 
-	ac := AdventOfCode{session, 2022, 1}
-	input, err := GetAOCInput(ac)
-
-	if err != nil {
-		panic(err)
+	for i := 1; i <= 25; i++ {
+		wg.Add(1)
+		go func(indx int) {
+			defer wg.Done()
+			ac := AdventOfCode{session, 2022, indx}
+			GenerateYearData(ac)
+		}(i)
 	}
 
-	folder := fmt.Sprintf("day_%d", ac.Day)
-	err = os.Mkdir(folder, os.ModePerm)
-	if err != nil {
-		fmt.Printf("%s folder already exists %s\n", colors.BoldRed("Error"), folder)
-		os.Exit(1)
-	}
+	wg.Wait()
 
-	file, err := os.Create(fmt.Sprintf("%s/input.txt", folder))
-	if err != nil {
-		fmt.Printf("%s %s file could not be created.\n", colors.BoldRed("Error"), folder+"/input.txt")
-		os.Exit(1)
-	}
-
-	written, err := file.Write(input)
-
-	if err != nil {
-		panic(err)
-	}
-
-	if written != len(input) {
-		fmt.Printf("%s writing input file\n", colors.BoldRed("Error"))
-		os.Exit(1)
-	}
-
-	GenerateMainFile(ac, string(input), folder)
-
-	fmt.Printf("%s: generated dir at %s\n", colors.BoldGreen("Success"), folder)
 }
 
 func GenerateMainFile(ac AdventOfCode, input string, dir string) {
@@ -106,8 +107,6 @@ func GetAOCInput(av AdventOfCode) ([]byte, error) {
 
 	sessionCookie := &http.Cookie{Name: "session", Value: av.SessionID}
 	req.AddCookie(sessionCookie)
-
-	fmt.Printf("%s: %s\n", colors.BoldCyan("Request"), url)
 	res, err := client.Do(req)
 
 	if err != nil {
@@ -115,6 +114,10 @@ func GetAOCInput(av AdventOfCode) ([]byte, error) {
 	}
 
 	body, err := io.ReadAll(res.Body)
+
+	if res.StatusCode != 200 {
+		return make([]byte, 0), fmt.Errorf("days data is not ready to be retrieved")
+	}
 
 	if err != nil {
 		return make([]byte, 0), err

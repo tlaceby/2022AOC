@@ -15,7 +15,6 @@ func main() {
 	current_callories := 0
 
 	for _, line := range lines {
-		println(len(line))
 		// If the length is one then is simply means a newline
 		if len(line) == 0 {
 			// Check the top elfs and see if elfs is greater than any of them
