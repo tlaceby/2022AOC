@@ -1,6 +1,3 @@
 # 2022AOC
- Advent Of Code 2022 Challenges. 
- 
- ### About
- The advent of code is a website thast hosts interesting and interactive programming challenges once a year for the month of December.
- This is simply the code I wrote for the AOC 2022 year.
+ Advent Of Code challenges for the 2022 year. This repository contains allm the code written for my 2022 AOC challenges. I am probably going to use
+ Go as my language as I would really like to learn Go more.
