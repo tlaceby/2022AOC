@@ -5,12 +5,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tlaceby/2022AOC/lib"
+	"github.com/tlaceby/go-utils/arrays"
+	"github.com/tlaceby/go-utils/fs"
 )
 
 func main() {
 	const TOP_COUNT = 3
-	lines := lib.GetLines("input.txt")
+	lines, _ := fs.GetLines("input.txt")
 	top_callories := make([]int, TOP_COUNT)
 	current_callories := 0
 
@@ -40,5 +41,5 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Sum %d\n", lib.Accumulate(top_callories))
+	fmt.Printf("Sum %d\n", arrays.Accumulate(top_callories))
 }
