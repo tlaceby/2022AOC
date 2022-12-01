@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"strconv"
-	"strings"
 
 	"github.com/tlaceby/go-utils/arrays"
 	"github.com/tlaceby/go-utils/fs"
@@ -16,8 +15,9 @@ func main() {
 	current_callories := 0
 
 	for _, line := range lines {
+		println(len(line))
 		// If the length is one then is simply means a newline
-		if len(line) == 1 {
+		if len(line) == 0 {
 			// Check the top elfs and see if elfs is greater than any of them
 			for indx, cal := range top_callories {
 				// If the number is larger than top N then swap the value at the lowest index
@@ -31,15 +31,11 @@ func main() {
 			current_callories = 0
 		}
 
-		if len(line) > 1 {
-			// remove the trailing \r character on the line
-			line = strings.ReplaceAll(line, "\r", "")
+		if len(line) > 0 {
 			num, _ := strconv.Atoi(line)
-
-			// running sum of callories
 			current_callories += num
 		}
 	}
 
-	fmt.Printf("Sum %d\n", arrays.Accumulate(top_callories))
+	fmt.Printf("Sum %d %v\n", arrays.Accumulate(top_callories), top_callories)
 }
