@@ -1,2 +1,4 @@
-github.com/tlaceby/go-utils v0.0.0-20221201062137-ebdc824748b9 h1:eTP9E1OCRlcfxbRMTQN6aCufTJIiCRoCWIVoECJyB5E=
-github.com/tlaceby/go-utils v0.0.0-20221201062137-ebdc824748b9/go.mod h1:EX0GNxlf2ahDrLUfGC59gGVNeBNV03wokyfXsook5ao=
+github.com/joho/godotenv v1.4.0 h1:3l4+N6zfMWnkbPEXKng2o2/MR5mSwTrBih4ZEkkz1lg=
+github.com/joho/godotenv v1.4.0/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+github.com/tlaceby/go-utils v0.0.0-20221201063421-a352fcb9107e h1:VLwPonCWqkEjyMTgCxR29Rbj5Oi4Ws2b5STesrwR9no=
+github.com/tlaceby/go-utils v0.0.0-20221201063421-a352fcb9107e/go.mod h1:EX0GNxlf2ahDrLUfGC59gGVNeBNV03wokyfXsook5ao=
