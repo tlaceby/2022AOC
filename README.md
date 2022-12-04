@@ -1,5 +1,5 @@
-# 2022AOC
- Advent Of Code challenges for the 2022 year. This repository contains allm the code written for my 2022 AOC challenges. 
+# AOC
+ Advent Of Code challenges. This repository contains all the code written for my AOC challenges. It Also contains a helpful cli script to generate each folder and input file. Simply add a `.env` file and place your session in there and this will pull down the daily inputs.
 
 
 ## Using This Repo
